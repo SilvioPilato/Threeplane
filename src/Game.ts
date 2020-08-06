@@ -5,9 +5,9 @@ import {
   WebGLRenderer,
   WireframeGeometry,
   LineSegments,
-  LineBasicMaterial
+  MeshBasicMaterial
 } from "three";
-import CommonPlaneGeometry from "./CommonPlaneGeometry";
+import SimplexPlane from "./SimplexPlane";
 export type Game = {
   scene: Scene;
   world: Object3D;
@@ -16,8 +16,8 @@ export type Game = {
 };
 
 export const RandomMapGame = (): Game => {
-  const material = new LineBasicMaterial({ color: 0x8bac0f });
-  const wireframe = new WireframeGeometry(CommonPlaneGeometry(10, 10, 5));
+  const material = new MeshBasicMaterial({ color: 0x8bac0f });
+  const wireframe = new WireframeGeometry(SimplexPlane(50, 50, 5));
   return {
     scene: new Scene(),
     renderer: new WebGLRenderer(),

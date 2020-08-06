@@ -6,7 +6,7 @@ renderer.setSize(800, 600);
 
 camera.position.set(0, 0, 100);
 camera.lookAt(0, 0, 0);
-world.rotateX(90);
+world.rotateX(0);
 scene.add(world);
 
 function animate() {
