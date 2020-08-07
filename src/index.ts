@@ -28,14 +28,17 @@ const { horizontalGridSize, verticalGridSize, cellSize } = controllers(refreshWo
 
 horizontalGridSize.onChange((value) => {
   gameSettings = {...gameSettings, gridXSize: value}
+  refreshWorld();
 });
 
 verticalGridSize.onChange((value) => {
   gameSettings = {...gameSettings, gridYSize: value}
+  refreshWorld();
 });
 
 cellSize.onChange((value) => {
   gameSettings = {...gameSettings, gridCellSize: value}
+  refreshWorld();
 })
 
 document.getElementById('properties-panel').appendChild(domElement);
