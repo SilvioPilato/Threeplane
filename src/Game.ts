@@ -15,9 +15,13 @@ export type Game = {
   renderer: WebGLRenderer;
 };
 
-export const RandomMapGame = (): Game => {
+export const RandomMapGame = (
+  xSize: number,
+  ySize: number,
+  cellSize: number
+): Game => {
   const material = new MeshBasicMaterial({ color: 0x8bac0f });
-  const wireframe = new WireframeGeometry(SimplexPlane(10, 10, 5));
+  const wireframe = new WireframeGeometry(SimplexPlane(xSize, ySize, cellSize));
   return {
     scene: new Scene(),
     renderer: new WebGLRenderer(),
