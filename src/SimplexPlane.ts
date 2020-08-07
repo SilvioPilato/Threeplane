@@ -5,7 +5,7 @@ export default (
   sizeX: number,
   sizeY: number,
   cellSize = 1,
-  noiseAmplitude = 3
+  noiseAmplitude = 5
 ): BufferGeometry => {
   const geometry = new BufferGeometry();
   const simplex = new SimplexNoise(Date.now().toString());
