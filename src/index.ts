@@ -8,20 +8,21 @@ let gameSettings: GameSettings = {
   gridXSize: 50,
   gridYSize: 50,
   gridCellSize: 2,
+  noiseAmplitude: 2,
 }
 
 let { renderer, world, camera, scene } = RandomMapGame(gameSettings);
 
 const refreshWorld = () => {
-  const {gridXSize, gridYSize, gridCellSize} = gameSettings;
-  const newWorld = CreateRandomWorld(gridXSize, gridYSize, gridCellSize);
+  const { gridXSize, gridYSize, gridCellSize, noiseAmplitude } = gameSettings;
+  const newWorld = CreateRandomWorld(gridXSize, gridYSize, gridCellSize, noiseAmplitude);
   scene.remove(world);
   scene.add(newWorld);
   
   world = newWorld;
 }
 
-const { horizontalGridSize, verticalGridSize, cellSize } = controllers(refreshWorld, gameSettings);
+const { horizontalGridSize, verticalGridSize, cellSize, noiseAmplitude: noiseAmplitudeGui } = controllers(refreshWorld, gameSettings);
 
 horizontalGridSize.onChange((value) => {
   gameSettings = {...gameSettings, gridXSize: value}
@@ -36,6 +37,11 @@ verticalGridSize.onChange((value) => {
 cellSize.onChange((value) => {
   gameSettings = {...gameSettings, gridCellSize: value}
   refreshWorld();
+})
+
+noiseAmplitudeGui.onChange((value) => {
+    gameSettings = {...gameSettings, noiseAmplitude: value}
+    refreshWorld();
 })
 
 document.getElementById('properties-panel').appendChild(domElement);
