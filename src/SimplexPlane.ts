@@ -1,8 +1,12 @@
 import { BufferGeometry, BufferAttribute } from "three";
 import SimplexNoise from "simplex-noise";
 
-const noiseAmplitude = 3;
-export default (sizeX: number, sizeY: number, cellSize = 1): BufferGeometry => {
+export default (
+  sizeX: number,
+  sizeY: number,
+  cellSize = 1,
+  noiseAmplitude = 3
+): BufferGeometry => {
   const geometry = new BufferGeometry();
   const simplex = new SimplexNoise(Date.now().toString());
   let vertices: number[] = [];
@@ -16,31 +20,31 @@ export default (sizeX: number, sizeY: number, cellSize = 1): BufferGeometry => {
     }
     vertices.push(column * cellSize);
     vertices.push(row * cellSize);
-    vertices.push(0);
+    vertices.push(simplex.noise2D(column, row) * noiseAmplitude);
 
     vertices.push((column + 1) * cellSize);
     vertices.push(row * cellSize);
-    vertices.push(0);
+    vertices.push(simplex.noise2D(column + 1, row) * noiseAmplitude);
 
     vertices.push(column * cellSize);
     vertices.push((row + 1) * cellSize);
-    vertices.push(0);
+    vertices.push(simplex.noise2D(column, row + 1) * noiseAmplitude);
 
     vertices.push((column + 1) * cellSize);
     vertices.push(row * cellSize);
-    vertices.push(0);
+    vertices.push(simplex.noise2D(column + 1, row) * noiseAmplitude);
 
     vertices.push((column + 1) * cellSize);
     vertices.push((row + 1) * cellSize);
-    vertices.push(0);
+    vertices.push(simplex.noise2D(column + 1, row + 1) * noiseAmplitude);
 
     vertices.push(column * cellSize);
     vertices.push((row + 1) * cellSize);
-    vertices.push(0);
+    vertices.push(simplex.noise2D(column, row + 1) * noiseAmplitude);
 
     column++;
   }
-  console.log(vertices);
+
   Float32Array.from(vertices);
   geometry.setAttribute(
     "position",
