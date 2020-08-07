@@ -1,9 +1,6 @@
 import { RandomMapGame, CreateRandomWorld, GameSettings } from "./Game";
 import { domElement, controllers } from './GUI';
 
-let mapXSize = 50;
-let mapYSize = 50;
-const mapCellSize = 2;
 const rendererSizeX = 800;
 const rendererSizeY = 600;
 
