@@ -8,40 +8,66 @@ let gameSettings: GameSettings = {
   gridXSize: 50,
   gridYSize: 50,
   gridCellSize: 2,
-  noiseAmplitude: 2,
+  noiseOctaves: 1,
+  octavesPersistence: 1,
+  noiseLacunarity: 1,
+  noiseScale: 1,
 }
 
 let { renderer, world, camera, scene } = RandomMapGame(gameSettings);
 
 const refreshWorld = () => {
-  const { gridXSize, gridYSize, gridCellSize, noiseAmplitude } = gameSettings;
-  const newWorld = CreateRandomWorld(gridXSize, gridYSize, gridCellSize, noiseAmplitude);
+  const newWorld = CreateRandomWorld(gameSettings);
+
   scene.remove(world);
   scene.add(newWorld);
-  
+
   world = newWorld;
 }
 
-const { horizontalGridSize, verticalGridSize, cellSize, noiseAmplitude: noiseAmplitudeGui } = controllers(refreshWorld, gameSettings);
+const {
+  horizontalGridSize,
+  verticalGridSize,
+  cellSize,
+  noiseOctaves: noiseOctavesGui,
+  noiseLacunarity: noiseLacunarityGui,
+  octavesPersistence: octavesPersistenceGui,
+  noiseScale: noiseScaleGui,
+} = controllers(refreshWorld, gameSettings);
 
 horizontalGridSize.onChange((value) => {
-  gameSettings = {...gameSettings, gridXSize: value}
+  gameSettings = { ...gameSettings, gridXSize: value }
   refreshWorld();
 });
 
 verticalGridSize.onChange((value) => {
-  gameSettings = {...gameSettings, gridYSize: value}
+  gameSettings = { ...gameSettings, gridYSize: value }
   refreshWorld();
 });
 
 cellSize.onChange((value) => {
-  gameSettings = {...gameSettings, gridCellSize: value}
+  gameSettings = { ...gameSettings, gridCellSize: value }
   refreshWorld();
 })
 
-noiseAmplitudeGui.onChange((value) => {
-    gameSettings = {...gameSettings, noiseAmplitude: value}
-    refreshWorld();
+noiseOctavesGui.onChange((value) => {
+  gameSettings = { ...gameSettings, noiseOctaves: value }
+  refreshWorld();
+})
+
+noiseLacunarityGui.onChange((value) => {
+  gameSettings = { ...gameSettings, noiseLacunarity: value }
+  refreshWorld();
+})
+
+octavesPersistenceGui.onChange((value) => {
+  gameSettings = { ...gameSettings, octavesPersistence: value }
+  refreshWorld();
+})
+
+noiseScaleGui.onChange((value) => {
+  gameSettings = { ...gameSettings, noiseScale: value }
+  refreshWorld();
 })
 
 document.getElementById('properties-panel').appendChild(domElement);
