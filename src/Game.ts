@@ -23,6 +23,7 @@ export type GameSettings = {
   noiseLacunarity: number;
   octavesPersistence: number;
   noiseScale: number;
+  maxHeight: number;
 }
 
 export const RandomMapGame = (settings: GameSettings): Game => {

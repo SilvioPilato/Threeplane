@@ -5,7 +5,7 @@ import { GameSettings } from "./Game";
 export default (
   gameSettings: GameSettings
 ): BufferGeometry => {
-  const { gridXSize, gridYSize, gridCellSize, noiseLacunarity, noiseOctaves, noiseScale, octavesPersistence } = gameSettings;
+  const { gridXSize, gridYSize, gridCellSize, noiseLacunarity, noiseOctaves, noiseScale, octavesPersistence, maxHeight } = gameSettings;
   const geometry = new BufferGeometry();
   const simplex = new SimplexNoise(Date.now().toString());
   let vertices: number[] = [];
@@ -13,14 +13,15 @@ export default (
     let frequency = 1;
     let amplitude = 1;
     let totalNoise = 0;
-
+    let totalAmplitude = 0;
     for (let i = 0; i < noiseOctaves; i++) {
       totalNoise += simplex.noise2D(x / noiseScale * frequency, y / noiseScale * frequency) * amplitude;
+      totalAmplitude += amplitude;
       amplitude *= octavesPersistence;
       frequency *= noiseLacunarity;
     }
 
-    return totalNoise;
+    return totalNoise/totalAmplitude * maxHeight;
   }
   let row = 0;
   let column = 0;

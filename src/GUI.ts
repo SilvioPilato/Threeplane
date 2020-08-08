@@ -5,7 +5,7 @@ const gui = new GUI({ width: 300 });
 let gridFolder = gui.addFolder('World grid');
 export const domElement = gui.domElement;
 export const controllers = (onWorldGen: () => void, gameSettings: GameSettings) => {
-    const { gridXSize, gridYSize, gridCellSize, noiseLacunarity, noiseOctaves, octavesPersistence, noiseScale } = gameSettings;
+    const { gridXSize, gridYSize, gridCellSize, noiseLacunarity, noiseOctaves, octavesPersistence, noiseScale, maxHeight } = gameSettings;
     const settings = {
         'Horizontal size': gridXSize,
         'Vertical size': gridYSize,
@@ -14,6 +14,7 @@ export const controllers = (onWorldGen: () => void, gameSettings: GameSettings) 
         'Noise Lacunarity': noiseLacunarity,
         'Noise Scale': noiseScale,
         'Octaves Persistence': octavesPersistence,
+        'Max height': maxHeight,
         'Generate world': onWorldGen,
     }
 
@@ -23,8 +24,9 @@ export const controllers = (onWorldGen: () => void, gameSettings: GameSettings) 
         "cellSize": gridFolder.add(settings, 'Cell size', 1, 20, 0.1),
         "noiseOctaves": gridFolder.add(settings, 'Noise octaves', 1, 10, 1),
         "noiseLacunarity": gridFolder.add(settings, 'Noise Lacunarity', 0.1, 10, 0.1),
-        "noiseScale": gridFolder.add(settings, 'Noise Scale', 0.1, 20, 0.01),
+        "noiseScale": gridFolder.add(settings, 'Noise Scale', 0.1, 100, 0.01),
         "octavesPersistence": gridFolder.add(settings, 'Octaves Persistence', 0, 1, 0.05),
+        "maxHeight": gridFolder.add(settings, 'Max height', 1, 50, 0.5),
         "gridConfirm": gui.add(settings, 'Generate world', 2, 100, 2),
     }
 };

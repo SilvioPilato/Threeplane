@@ -12,6 +12,7 @@ let gameSettings: GameSettings = {
   octavesPersistence: 1,
   noiseLacunarity: 1,
   noiseScale: 1,
+  maxHeight: 5,
 }
 
 let { renderer, world, camera, scene } = RandomMapGame(gameSettings);
@@ -33,6 +34,7 @@ const {
   noiseLacunarity: noiseLacunarityGui,
   octavesPersistence: octavesPersistenceGui,
   noiseScale: noiseScaleGui,
+  maxHeight: maxHeightGui
 } = controllers(refreshWorld, gameSettings);
 
 horizontalGridSize.onChange((value) => {
@@ -67,6 +69,11 @@ octavesPersistenceGui.onChange((value) => {
 
 noiseScaleGui.onChange((value) => {
   gameSettings = { ...gameSettings, noiseScale: value }
+  refreshWorld();
+})
+
+maxHeightGui.onChange((value) => {
+  gameSettings = { ...gameSettings, maxHeight: value }
   refreshWorld();
 })
 
