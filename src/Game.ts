@@ -5,7 +5,9 @@ import {
   WebGLRenderer,
   WireframeGeometry,
   LineSegments,
-  MeshBasicMaterial
+  MeshBasicMaterial,
+  Mesh,
+  DoubleSide
 } from "three";
 import SimplexPlane from "./SimplexPlane";
 
@@ -43,9 +45,9 @@ export const CreateRandomWorld = (
   gameSettings: GameSettings
 ): Object3D => {
   const {gridXSize, gridYSize, gridCellSize } = gameSettings;
-  const material = new MeshBasicMaterial({ color: 0x8bac0f });
-  const wireframe = new WireframeGeometry(SimplexPlane(gameSettings));
-  const world = new LineSegments(wireframe, material)
+  const material = new MeshBasicMaterial({vertexColors: true, side: DoubleSide});
+  const world = new Mesh(SimplexPlane(gameSettings), material);
+  
   world.position.y = (-gridYSize * gridCellSize) / 2;
   world.position.x = (-gridXSize * gridCellSize) / 2;
   return world;

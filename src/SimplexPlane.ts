@@ -9,6 +9,21 @@ export default (
   const geometry = new BufferGeometry();
   const simplex = new SimplexNoise(Date.now().toString());
   let vertices: number[] = [];
+  let colors: number[] = [];
+  const pickColor = (zValue: number) => {
+    if (zValue < 0) {
+      return [
+        0,
+        41,
+        58
+      ]
+    }
+    return [
+      0,
+      128,
+      0
+    ]
+  }
   const getZValue = (x: number, y: number) => {
     let frequency = 1;
     let amplitude = 1;
@@ -25,34 +40,66 @@ export default (
   }
   let row = 0;
   let column = 0;
+  let lastZvalue = 0;
+  let lastColors =[];
   for (let faceIndex = 0; faceIndex <= gridXSize * gridYSize - 1; faceIndex++) {
     if (faceIndex % gridXSize === 0 && faceIndex !== 0) {
       row++;
       column = 0;
     }
+    lastZvalue = getZValue(column, row);
+    lastColors = pickColor(lastZvalue);
     vertices.push(column * gridCellSize);
     vertices.push(row * gridCellSize);
-    vertices.push(getZValue(column, row));
-
+    vertices.push(lastZvalue);
+    colors.push(lastColors[0])
+    colors.push(lastColors[1])
+    colors.push(lastColors[2])
+    
+    lastZvalue = getZValue(column + 1, row);
+    lastColors = pickColor(lastZvalue);
     vertices.push((column + 1) * gridCellSize);
     vertices.push(row * gridCellSize);
-    vertices.push(getZValue(column + 1, row));
+    vertices.push(lastZvalue);
+    colors.push(lastColors[0])
+    colors.push(lastColors[1])
+    colors.push(lastColors[2])
 
+    lastZvalue = getZValue(column, row + 1);
+    lastColors = pickColor(lastZvalue);
     vertices.push(column * gridCellSize);
     vertices.push((row + 1) * gridCellSize);
-    vertices.push(getZValue(column, row + 1));
+    vertices.push(lastZvalue);
+    colors.push(lastColors[0])
+    colors.push(lastColors[1])
+    colors.push(lastColors[2])
 
+    lastZvalue = getZValue(column + 1, row);
+    lastColors = pickColor(lastZvalue);
     vertices.push((column + 1) * gridCellSize);
     vertices.push(row * gridCellSize);
-    vertices.push(getZValue(column + 1, row));
+    vertices.push(lastZvalue);
+    colors.push(lastColors[0])
+    colors.push(lastColors[1])
+    colors.push(lastColors[2])
 
+    lastZvalue = getZValue(column + 1, row + 1);
+    lastColors = pickColor(lastZvalue);
     vertices.push((column + 1) * gridCellSize);
     vertices.push((row + 1) * gridCellSize);
-    vertices.push(getZValue(column + 1, row + 1));
+    vertices.push(lastZvalue);
+    colors.push(lastColors[0])
+    colors.push(lastColors[1])
+    colors.push(lastColors[2])
 
+    lastZvalue = getZValue(column, row + 1);
+    lastColors = pickColor(lastZvalue);
     vertices.push(column * gridCellSize);
     vertices.push((row + 1) * gridCellSize);
-    vertices.push(getZValue(column, row + 1));
+    vertices.push(lastZvalue);
+    colors.push(lastColors[0])
+    colors.push(lastColors[1])
+    colors.push(lastColors[2])
 
     column++;
   }
@@ -62,5 +109,10 @@ export default (
     "position",
     new BufferAttribute(new Float32Array(vertices), 3)
   );
+  geometry.setAttribute(
+    "color",
+    new BufferAttribute(new Uint8Array(colors), 3, true)
+  );
+
   return geometry;
 };

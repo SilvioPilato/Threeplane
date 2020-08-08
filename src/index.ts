@@ -7,12 +7,12 @@ const rendererSizeY = 600;
 let gameSettings: GameSettings = {
   gridXSize: 50,
   gridYSize: 50,
-  gridCellSize: 2,
-  noiseOctaves: 1,
-  octavesPersistence: 1,
-  noiseLacunarity: 1,
-  noiseScale: 1,
-  maxHeight: 5,
+  gridCellSize: 1,
+  noiseOctaves: 4,
+  octavesPersistence: 0.7,
+  noiseLacunarity: 2,
+  noiseScale: 35,
+  maxHeight: 3,
 }
 
 let { renderer, world, camera, scene } = RandomMapGame(gameSettings);
