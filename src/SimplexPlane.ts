@@ -21,7 +21,7 @@ export default (
   const vertices: number[] = [];
   const colors: number[] = [];
   const pickColor = (zValue: number) => {
-    const biome = getByZValue(biomes, zValue);
+    const biome = getByZValue(biomes, zValue / maxHeight);
     return [biome.color.r, biome.color.g, biome.color.b];
   };
   const getZValue = (x: number, y: number) => {

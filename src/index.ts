@@ -5,6 +5,7 @@ import SettingsGUI, {
   GameSettingsOptions,
 } from './SettingsGUI';
 import { Biome } from './Biomes';
+import { MaxEquation } from 'three';
 
 const rendererSizeX = 800;
 const rendererSizeY = 600;
@@ -24,7 +25,7 @@ let gameSettings: GameSettings = {
 };
 const activeBiomes: Biome[] = [
   {
-    threshold: -0.1 * gameSettings.maxHeight,
+    threshold: -0.1,
     color: {
       r: 0,
       g: 41,
@@ -32,7 +33,7 @@ const activeBiomes: Biome[] = [
     },
   },
   {
-    threshold: 0.3 * gameSettings.maxHeight,
+    threshold: 0.3,
     color: {
       r: 51,
       g: 165,
@@ -40,7 +41,7 @@ const activeBiomes: Biome[] = [
     },
   },
   {
-    threshold: 0.5 * gameSettings.maxHeight,
+    threshold: 0.5,
     color: {
       r: 75,
       g: 44,
@@ -48,7 +49,7 @@ const activeBiomes: Biome[] = [
     },
   },
   {
-    threshold: 1 * gameSettings.maxHeight,
+    threshold: 1,
     color: {
       r: 255,
       g: 250,
@@ -58,10 +59,8 @@ const activeBiomes: Biome[] = [
 ];
 
 const onSettingsChange = (compName: GameSettingsOptions, value: unknown) => {
-  if (value) {
-    gameSettings = { ...gameSettings, [compName]: value };
-    refreshWorld();
-  }
+  gameSettings = { ...gameSettings, [compName]: value };
+  refreshWorld();
 };
 SettingsGUI(gameSettings, onSettingsChange);
 const map = RandomMapGame(gameSettings, activeBiomes);
