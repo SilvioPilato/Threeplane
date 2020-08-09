@@ -40,7 +40,7 @@ const activeBiomes: Biome[] = [
     },
   },
   {
-    threshold: 0.6 * gameSettings.maxHeight,
+    threshold: 0.5 * gameSettings.maxHeight,
     color: {
       r: 75,
       g: 44,
@@ -50,9 +50,9 @@ const activeBiomes: Biome[] = [
   {
     threshold: 1 * gameSettings.maxHeight,
     color: {
-      r: 94,
-      g: 94,
-      b: 92,
+      r: 255,
+      g: 250,
+      b: 250,
     },
   },
 ];
