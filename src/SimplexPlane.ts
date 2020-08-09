@@ -1,8 +1,11 @@
 import { BufferGeometry, BufferAttribute } from 'three';
 import SimplexNoise from 'simplex-noise';
 import { GameSettings } from './SettingsGUI';
-
-export default (gameSettings: GameSettings): BufferGeometry => {
+import getByZValue, { Biome } from './Biomes';
+export default (
+  gameSettings: GameSettings,
+  biomes: Biome[],
+): BufferGeometry => {
   const {
     gridXSize,
     gridYSize,
@@ -18,10 +21,8 @@ export default (gameSettings: GameSettings): BufferGeometry => {
   const vertices: number[] = [];
   const colors: number[] = [];
   const pickColor = (zValue: number) => {
-    if (zValue < 0) {
-      return [0, 41, 58];
-    }
-    return [0, 128, 0];
+    const biome = getByZValue(biomes, zValue);
+    return [biome.color.r, biome.color.g, biome.color.b];
   };
   const getZValue = (x: number, y: number) => {
     let frequency = 1;
