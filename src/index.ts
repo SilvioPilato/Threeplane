@@ -30,6 +30,7 @@ let gameSettings: GameSettings = {
 const onSettingsChange = (compName: GameSettingsOptions, value: unknown) => {
   if (value) {
     gameSettings = { ...gameSettings, [compName]: value };
+    console.log(gameSettings);
     refreshWorld();
   }
 };
@@ -42,6 +43,7 @@ const refreshWorld = () => {
   const newWorld = CreateRandomWorld(gameSettings);
   scene.remove(world);
   scene.add(newWorld);
+  world = newWorld;
 };
 
 document.getElementById('properties-panel').appendChild(domElement);
