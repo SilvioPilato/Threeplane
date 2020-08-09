@@ -18,12 +18,7 @@ let gameSettings: GameSettings = {
   noiseScale: 35,
   maxHeight: 3,
   onWorldGen: () => {
-    const newWorld = CreateRandomWorld(gameSettings);
-
-    scene.remove(world);
-    scene.add(newWorld);
-
-    world = newWorld;
+    refreshWorld();
   },
 };
 
