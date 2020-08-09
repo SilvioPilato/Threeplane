@@ -30,7 +30,6 @@ let gameSettings: GameSettings = {
 const onSettingsChange = (compName: GameSettingsOptions, value: unknown) => {
   if (value) {
     gameSettings = { ...gameSettings, [compName]: value };
-    console.log(gameSettings);
     refreshWorld();
   }
 };
