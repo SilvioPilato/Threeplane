@@ -1,5 +1,9 @@
-import { RandomMapGame, CreateRandomWorld } from "./Game";
-import SettingsGUI, { domElement, GameSettings } from './SettingsGUI';
+import { RandomMapGame, CreateRandomWorld } from './Game';
+import SettingsGUI, {
+  domElement,
+  GameSettings,
+  GameSettingsOptions,
+} from './SettingsGUI';
 
 const rendererSizeX = 800;
 const rendererSizeY = 600;
@@ -15,32 +19,30 @@ let gameSettings: GameSettings = {
   maxHeight: 3,
   onWorldGen: () => {
     const newWorld = CreateRandomWorld(gameSettings);
-  
+
     scene.remove(world);
     scene.add(newWorld);
-  
-    world = newWorld;
-  }
-}
 
-const onSettingsChange = (compName, value) => {
-  if (compName !== "generateWorld") {
-    gameSettings = { ...gameSettings, [compName]: value }
+    world = newWorld;
+  },
+};
+
+const onSettingsChange = (compName: GameSettingsOptions, value: unknown) => {
+  if (value) {
+    gameSettings = { ...gameSettings, [compName]: value };
     refreshWorld();
   }
-}
-SettingsGUI(gameSettings, onSettingsChange)
-
-let { renderer, world, camera, scene } = RandomMapGame(gameSettings);
+};
+SettingsGUI(gameSettings, onSettingsChange);
+const map = RandomMapGame(gameSettings);
+const { renderer, camera, scene } = map;
+let { world } = map;
 
 const refreshWorld = () => {
   const newWorld = CreateRandomWorld(gameSettings);
-
   scene.remove(world);
   scene.add(newWorld);
-
-  world = newWorld;
-}
+};
 
 document.getElementById('properties-panel').appendChild(domElement);
 
