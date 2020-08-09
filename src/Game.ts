@@ -10,6 +10,7 @@ import {
   DoubleSide
 } from "three";
 import SimplexPlane from "./SimplexPlane";
+import { GameSettings } from "./SettingsGUI";
 
 export type Game = {
   scene: Scene;
@@ -17,16 +18,6 @@ export type Game = {
   camera: PerspectiveCamera;
   renderer: WebGLRenderer;
 };
-export type GameSettings = {
-  gridXSize: number;
-  gridYSize: number;
-  gridCellSize: number;
-  noiseOctaves: number;
-  noiseLacunarity: number;
-  octavesPersistence: number;
-  noiseScale: number;
-  maxHeight: number;
-}
 
 export const RandomMapGame = (settings: GameSettings): Game => {
   const camera = new PerspectiveCamera(75, 800 / 600, 0.1, 1000)
