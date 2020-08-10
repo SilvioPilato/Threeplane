@@ -5,7 +5,6 @@ import {
   WebGLRenderer,
   MeshBasicMaterial,
   Mesh,
-  DoubleSide,
 } from 'three';
 import SimplexPlane from './SimplexPlane';
 import { GameSettings } from './SettingsGUI';
@@ -39,7 +38,6 @@ export const CreateRandomWorld = (
   const { gridXSize, gridYSize, gridCellSize } = gameSettings;
   const material = new MeshBasicMaterial({
     vertexColors: true,
-    side: DoubleSide,
   });
   const world = new Mesh(SimplexPlane(gameSettings, biomes), material);
 
