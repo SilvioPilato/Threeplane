@@ -18,13 +18,14 @@ let gameSettings: GameSettings = {
   noiseLacunarity: 2,
   noiseScale: 35,
   maxHeight: 3,
+  worldAutogen: true,
   onWorldGen: () => {
     refreshWorld();
   },
 };
 const activeBiomes: Biome[] = [
   {
-    threshold: -0.1,
+    threshold: 0.1,
     color: {
       r: 0,
       g: 41,
@@ -40,7 +41,7 @@ const activeBiomes: Biome[] = [
     },
   },
   {
-    threshold: 0.5,
+    threshold: 0.7,
     color: {
       r: 75,
       g: 44,
@@ -59,7 +60,9 @@ const activeBiomes: Biome[] = [
 
 const onSettingsChange = (compName: GameSettingsOptions, value: unknown) => {
   gameSettings = { ...gameSettings, [compName]: value };
-  refreshWorld();
+  if (gameSettings.worldAutogen && compName !== 'onWorldGen') {
+    refreshWorld();
+  }
 };
 SettingsGUI(gameSettings, onSettingsChange);
 const map = RandomMapGame(gameSettings, activeBiomes);

@@ -10,6 +10,7 @@ export type GameSettings = {
   octavesPersistence: number;
   noiseScale: number;
   maxHeight: number;
+  worldAutogen: boolean;
   onWorldGen: () => void;
 };
 export type GameSettingsOptions = keyof GameSettings;
@@ -33,6 +34,7 @@ export default (
     noiseScale,
     maxHeight,
     onWorldGen,
+    worldAutogen,
   } = defaultSettings;
   const settings = {
     'Horizontal size': gridXSize,
@@ -43,12 +45,13 @@ export default (
     'Noise Scale': noiseScale,
     'Octaves Persistence': octavesPersistence,
     'Max height': maxHeight,
+    'Generate on change': worldAutogen,
     'Generate world': onWorldGen,
   };
 
   const componentMap: ComponentMap = {
-    gridXSize: gridFolder.add(settings, 'Horizontal size', 2, 100, 1),
-    gridYSize: gridFolder.add(settings, 'Vertical size', 2, 100, 1),
+    gridXSize: gridFolder.add(settings, 'Horizontal size', 2, 300, 1),
+    gridYSize: gridFolder.add(settings, 'Vertical size', 2, 300, 1),
     gridCellSize: gridFolder.add(settings, 'Cell size', 1, 20, 0.1),
     noiseOctaves: gridFolder.add(settings, 'Noise octaves', 1, 10, 1),
     noiseLacunarity: gridFolder.add(settings, 'Noise Lacunarity', 0.1, 10, 0.1),
@@ -61,7 +64,8 @@ export default (
       0.05,
     ),
     maxHeight: gridFolder.add(settings, 'Max height', 1, 50, 0.5),
-    onWorldGen: gui.add(settings, 'Generate world', 2, 100, 2),
+    worldAutogen: gui.add(settings, 'Generate on change'),
+    onWorldGen: gui.add(settings, 'Generate world'),
   };
 
   Object.keys(componentMap).forEach((componentName: GameSettingsOptions) => {
