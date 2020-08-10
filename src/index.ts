@@ -5,7 +5,6 @@ import SettingsGUI, {
   GameSettingsOptions,
 } from './SettingsGUI';
 import { Biome } from './Biomes';
-import { MaxEquation } from 'three';
 
 const rendererSizeX = 800;
 const rendererSizeY = 600;
