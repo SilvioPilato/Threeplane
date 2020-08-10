@@ -10,14 +10,14 @@ const rendererSizeX = 800;
 const rendererSizeY = 600;
 
 let gameSettings: GameSettings = {
-  gridXSize: 50,
-  gridYSize: 50,
+  gridXSize: 100,
+  gridYSize: 100,
   gridCellSize: 1,
   noiseOctaves: 4,
-  octavesPersistence: 0.7,
-  noiseLacunarity: 2,
-  noiseScale: 35,
-  maxHeight: 3,
+  octavesPersistence: 0.25,
+  noiseLacunarity: 5,
+  noiseScale: 100,
+  maxHeight: 10,
   worldAutogen: true,
   onWorldGen: () => {
     refreshWorld();
@@ -25,7 +25,7 @@ let gameSettings: GameSettings = {
 };
 const activeBiomes: Biome[] = [
   {
-    threshold: 0.1,
+    threshold: 0.2,
     color: {
       r: 0,
       g: 41,
@@ -33,7 +33,15 @@ const activeBiomes: Biome[] = [
     },
   },
   {
-    threshold: 0.3,
+    threshold: 0.25,
+    color: {
+      r: 198,
+      g: 166,
+      b: 100,
+    },
+  },
+  {
+    threshold: 0.6,
     color: {
       r: 51,
       g: 165,
@@ -41,7 +49,7 @@ const activeBiomes: Biome[] = [
     },
   },
   {
-    threshold: 0.7,
+    threshold: 0.8,
     color: {
       r: 75,
       g: 44,
