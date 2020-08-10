@@ -45,7 +45,6 @@ export default (
   let row = 0;
   let column = 0;
   let lastZvalue = 0;
-  const lastColors = [];
   for (let faceIndex = 0; faceIndex <= gridXSize * gridYSize - 1; faceIndex++) {
     if (faceIndex % gridXSize === 0 && faceIndex !== 0) {
       row++;
