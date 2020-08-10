@@ -45,65 +45,65 @@ export default (
   let row = 0;
   let column = 0;
   let lastZvalue = 0;
-  let lastColors = [];
+  const lastColors = [];
   for (let faceIndex = 0; faceIndex <= gridXSize * gridYSize - 1; faceIndex++) {
     if (faceIndex % gridXSize === 0 && faceIndex !== 0) {
       row++;
       column = 0;
     }
+    const triangleA = [];
     lastZvalue = getZValue(column, row);
-    lastColors = pickColor(lastZvalue);
     vertices.push(column * gridCellSize);
     vertices.push(row * gridCellSize);
     vertices.push(lastZvalue);
-    colors.push(lastColors[0]);
-    colors.push(lastColors[1]);
-    colors.push(lastColors[2]);
+    triangleA.push(lastZvalue);
 
     lastZvalue = getZValue(column + 1, row);
-    lastColors = pickColor(lastZvalue);
     vertices.push((column + 1) * gridCellSize);
     vertices.push(row * gridCellSize);
     vertices.push(lastZvalue);
-    colors.push(lastColors[0]);
-    colors.push(lastColors[1]);
-    colors.push(lastColors[2]);
+    triangleA.push(lastZvalue);
 
     lastZvalue = getZValue(column, row + 1);
-    lastColors = pickColor(lastZvalue);
     vertices.push(column * gridCellSize);
     vertices.push((row + 1) * gridCellSize);
     vertices.push(lastZvalue);
-    colors.push(lastColors[0]);
-    colors.push(lastColors[1]);
-    colors.push(lastColors[2]);
+    triangleA.push(lastZvalue);
 
+    const triangleB = [];
     lastZvalue = getZValue(column + 1, row);
-    lastColors = pickColor(lastZvalue);
     vertices.push((column + 1) * gridCellSize);
     vertices.push(row * gridCellSize);
     vertices.push(lastZvalue);
-    colors.push(lastColors[0]);
-    colors.push(lastColors[1]);
-    colors.push(lastColors[2]);
+    triangleB.push(lastZvalue);
 
     lastZvalue = getZValue(column + 1, row + 1);
-    lastColors = pickColor(lastZvalue);
     vertices.push((column + 1) * gridCellSize);
     vertices.push((row + 1) * gridCellSize);
     vertices.push(lastZvalue);
-    colors.push(lastColors[0]);
-    colors.push(lastColors[1]);
-    colors.push(lastColors[2]);
+    triangleB.push(lastZvalue);
 
     lastZvalue = getZValue(column, row + 1);
-    lastColors = pickColor(lastZvalue);
     vertices.push(column * gridCellSize);
     vertices.push((row + 1) * gridCellSize);
     vertices.push(lastZvalue);
-    colors.push(lastColors[0]);
-    colors.push(lastColors[1]);
-    colors.push(lastColors[2]);
+    triangleB.push(lastZvalue);
+
+    const sortedTriangleA: number[] = triangleA.sort();
+    const colorA = pickColor(sortedTriangleA[2]);
+    for (let i = 0; i < 3; i++) {
+      colors.push(colorA[0]);
+      colors.push(colorA[1]);
+      colors.push(colorA[2]);
+    }
+
+    const sortedTriangleB: number[] = triangleB.sort();
+    const colorB = pickColor(sortedTriangleB[2]);
+    for (let i = 0; i < 3; i++) {
+      colors.push(colorB[0]);
+      colors.push(colorB[1]);
+      colors.push(colorB[2]);
+    }
 
     column++;
   }

@@ -77,10 +77,8 @@ const refreshWorld = () => {
 };
 
 document.getElementById('properties-panel').appendChild(domElement);
-
 document.getElementById('app').appendChild(renderer.domElement);
 renderer.setSize(rendererSizeX, rendererSizeY);
-
 scene.add(world);
 scene.rotateX(-20);
 
