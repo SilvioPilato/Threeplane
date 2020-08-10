@@ -15,11 +15,7 @@ export const compareBiomes = (a: Biome, b: Biome): number => {
 };
 
 export default (biomes: Biome[], zValue: number): Biome => {
-  const value = biomes.sort(compareBiomes).find((biome) => {
+  return biomes.sort(compareBiomes).find((biome) => {
     return biome.threshold >= zValue;
   });
-  if (!value) {
-    console.log(zValue, biomes);
-  }
-  return value;
 };
