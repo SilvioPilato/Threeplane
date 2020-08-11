@@ -20,11 +20,12 @@ export default (
   const simplex = new SimplexNoise(Date.now().toString());
   const vertices: number[] = [];
   const colors: number[] = [];
+
   const pickColor = (zValue: number) => {
     const biome = getByZValue(biomes, zValue / maxHeight);
     return [biome.color.r, biome.color.g, biome.color.b];
   };
-  const getZValue = (x: number, y: number) => {
+  const getNoiseValue = (x: number, y: number) => {
     let frequency = 1;
     let amplitude = 1;
     let totalNoise = 0;
@@ -39,9 +40,13 @@ export default (
       amplitude *= octavesPersistence;
       frequency *= noiseLacunarity;
     }
-
-    return (totalNoise / totalAmplitude) * maxHeight;
+    return totalNoise / totalAmplitude;
   };
+
+  const getZValue = (x: number, y: number) => {
+    return getNoiseValue(x, y) * maxHeight;
+  };
+
   let row = 0;
   let column = 0;
   let lastZvalue = 0;
@@ -50,64 +55,57 @@ export default (
       row++;
       column = 0;
     }
-    const triangleA = [];
+    const triangles = [];
     lastZvalue = getZValue(column, row);
     vertices.push(column * gridCellSize);
     vertices.push(row * gridCellSize);
     vertices.push(lastZvalue);
-    triangleA.push(lastZvalue);
+    triangles.push(lastZvalue);
 
     lastZvalue = getZValue(column + 1, row);
     vertices.push((column + 1) * gridCellSize);
     vertices.push(row * gridCellSize);
     vertices.push(lastZvalue);
-    triangleA.push(lastZvalue);
+    triangles.push(lastZvalue);
 
     lastZvalue = getZValue(column, row + 1);
     vertices.push(column * gridCellSize);
     vertices.push((row + 1) * gridCellSize);
     vertices.push(lastZvalue);
-    triangleA.push(lastZvalue);
+    triangles.push(lastZvalue);
 
-    const triangleB = [];
     lastZvalue = getZValue(column + 1, row);
     vertices.push((column + 1) * gridCellSize);
     vertices.push(row * gridCellSize);
     vertices.push(lastZvalue);
-    triangleB.push(lastZvalue);
+    triangles.push(lastZvalue);
 
     lastZvalue = getZValue(column + 1, row + 1);
     vertices.push((column + 1) * gridCellSize);
     vertices.push((row + 1) * gridCellSize);
     vertices.push(lastZvalue);
-    triangleB.push(lastZvalue);
+    triangles.push(lastZvalue);
 
     lastZvalue = getZValue(column, row + 1);
     vertices.push(column * gridCellSize);
     vertices.push((row + 1) * gridCellSize);
     vertices.push(lastZvalue);
-    triangleB.push(lastZvalue);
+    triangles.push(lastZvalue);
 
-    const sortedTriangleA: number[] = triangleA.sort();
-    const colorA = pickColor(sortedTriangleA[2]);
+    const sortedtriangles: number[] = triangles.sort();
+    const color = pickColor(sortedtriangles[5]);
     for (let i = 0; i < 3; i++) {
-      colors.push(colorA[0]);
-      colors.push(colorA[1]);
-      colors.push(colorA[2]);
-    }
-
-    const sortedTriangleB: number[] = triangleB.sort();
-    const colorB = pickColor(sortedTriangleB[2]);
-    for (let i = 0; i < 3; i++) {
-      colors.push(colorB[0]);
-      colors.push(colorB[1]);
-      colors.push(colorB[2]);
+      colors.push(color[0]);
+      colors.push(color[1]);
+      colors.push(color[2]);
+      colors.push(color[0]);
+      colors.push(color[1]);
+      colors.push(color[2]);
     }
 
     column++;
   }
 
-  Float32Array.from(vertices);
   geometry.setAttribute(
     'position',
     new BufferAttribute(new Float32Array(vertices), 3),
