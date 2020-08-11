@@ -3,10 +3,7 @@ import SimplexNoise from 'simplex-noise';
 import { GameSettings } from './SettingsGUI';
 import getByZValue, { Biome } from './Biomes';
 export default (
-  gameSettings: GameSettings,
-  biomes: Biome[],
-): BufferGeometry => {
-  const {
+  {
     gridXSize,
     gridYSize,
     gridCellSize,
@@ -15,7 +12,9 @@ export default (
     noiseScale,
     octavesPersistence,
     maxHeight,
-  } = gameSettings;
+  }: GameSettings,
+  biomes: Biome[],
+): BufferGeometry => {
   const geometry = new BufferGeometry();
   const simplex = new SimplexNoise(Date.now().toString());
   const vertices: number[] = [];
@@ -25,6 +24,7 @@ export default (
     const biome = getByZValue(biomes, zValue / maxHeight);
     return [biome.color.r, biome.color.g, biome.color.b];
   };
+
   const getNoiseValue = (x: number, y: number) => {
     let frequency = 1;
     let amplitude = 1;
