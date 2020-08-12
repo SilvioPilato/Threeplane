@@ -19,7 +19,7 @@ export default (
   };
 
   const getZValue = (zValue: number) => {
-    return Math.pow(zValue, 3) * maxHeight;
+    return Math.pow(zValue, 4) * maxHeight;
   };
 
   let row = 0;

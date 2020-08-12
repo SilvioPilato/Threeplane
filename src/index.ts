@@ -44,7 +44,7 @@ const activeBiomes: Biome[] = [
   },
   {
     type: BiomeType.GRASS,
-    threshold: 0.7,
+    threshold: 0.75,
     color: {
       r: 51,
       g: 165,
