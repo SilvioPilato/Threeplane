@@ -1,4 +1,5 @@
 export type Biome = {
+  type: BiomeType;
   color: {
     r: number;
     g: number;
@@ -6,6 +7,13 @@ export type Biome = {
   };
   threshold: number;
 };
+export enum BiomeType {
+  WATER,
+  SHORE,
+  GRASS,
+  MOUNTAIN,
+  SNOW,
+}
 
 export const compareBiomes = (a: Biome, b: Biome): number => {
   if (a.threshold === b.threshold) {

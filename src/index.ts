@@ -4,7 +4,7 @@ import SettingsGUI, {
   GameSettings,
   GameSettingsOptions,
 } from './SettingsGUI';
-import { Biome } from './Biomes';
+import { Biome, BiomeType } from './Biomes';
 
 const rendererSizeX = 800;
 const rendererSizeY = 600;
@@ -15,9 +15,9 @@ let gameSettings: GameSettings = {
   gridCellSize: 1,
   noiseOctaves: 4,
   octavesPersistence: 0.25,
-  noiseLacunarity: 5,
-  noiseScale: 100,
-  maxHeight: 10,
+  noiseLacunarity: 7,
+  noiseScale: 80,
+  maxHeight: 20,
   worldAutogen: true,
   onWorldGen: () => {
     refreshWorld();
@@ -25,7 +25,8 @@ let gameSettings: GameSettings = {
 };
 const activeBiomes: Biome[] = [
   {
-    threshold: 0.2,
+    type: BiomeType.WATER,
+    threshold: 0.4,
     color: {
       r: 0,
       g: 41,
@@ -33,7 +34,8 @@ const activeBiomes: Biome[] = [
     },
   },
   {
-    threshold: 0.25,
+    type: BiomeType.SHORE,
+    threshold: 0.45,
     color: {
       r: 198,
       g: 166,
@@ -41,7 +43,8 @@ const activeBiomes: Biome[] = [
     },
   },
   {
-    threshold: 0.6,
+    type: BiomeType.GRASS,
+    threshold: 0.65,
     color: {
       r: 51,
       g: 165,
@@ -49,7 +52,8 @@ const activeBiomes: Biome[] = [
     },
   },
   {
-    threshold: 0.8,
+    type: BiomeType.MOUNTAIN,
+    threshold: 0.85,
     color: {
       r: 75,
       g: 44,
@@ -57,6 +61,7 @@ const activeBiomes: Biome[] = [
     },
   },
   {
+    type: BiomeType.SNOW,
     threshold: 1,
     color: {
       r: 255,

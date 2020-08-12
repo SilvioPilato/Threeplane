@@ -38,6 +38,7 @@ export const CreateRandomWorld = (
   const { gridXSize, gridYSize, gridCellSize } = gameSettings;
   const material = new MeshBasicMaterial({
     vertexColors: true,
+    flatShading: true,
   });
   const world = new Mesh(SimplexPlane(gameSettings, biomes), material);
 
