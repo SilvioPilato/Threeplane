@@ -3,7 +3,6 @@ import {
   Object3D,
   PerspectiveCamera,
   WebGLRenderer,
-  MeshBasicMaterial,
   Mesh,
   MeshPhongMaterial,
 } from 'three';

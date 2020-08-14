@@ -5,7 +5,7 @@ import SettingsGUI, {
   GameSettingsOptions,
 } from './SettingsGUI';
 import { Biome, BiomeType } from './Biomes';
-import { DirectionalLight, PointLight, HemisphereLight } from 'three';
+import { HemisphereLight } from 'three';
 
 const rendererSizeX = 800;
 const rendererSizeY = 600;
