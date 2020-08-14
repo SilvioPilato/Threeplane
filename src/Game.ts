@@ -5,6 +5,7 @@ import {
   WebGLRenderer,
   MeshBasicMaterial,
   Mesh,
+  MeshPhongMaterial,
 } from 'three';
 import SimplexPlane from './SimplexPlane';
 import { GameSettings } from './SettingsGUI';
@@ -36,10 +37,11 @@ export const CreateRandomWorld = (
   biomes: Biome[],
 ): Object3D => {
   const { gridXSize, gridYSize, gridCellSize } = gameSettings;
-  const material = new MeshBasicMaterial({
+  const material = new MeshPhongMaterial({
     vertexColors: true,
     flatShading: true,
   });
+
   const world = new Mesh(SimplexPlane(gameSettings, biomes), material);
 
   world.position.y = (-gridYSize * gridCellSize) / 2;

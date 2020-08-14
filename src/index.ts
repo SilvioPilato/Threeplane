@@ -5,6 +5,7 @@ import SettingsGUI, {
   GameSettingsOptions,
 } from './SettingsGUI';
 import { Biome, BiomeType } from './Biomes';
+import { DirectionalLight, PointLight, HemisphereLight } from 'three';
 
 const rendererSizeX = 800;
 const rendererSizeY = 600;
@@ -93,6 +94,10 @@ document.getElementById('properties-panel').appendChild(domElement);
 document.getElementById('app').appendChild(renderer.domElement);
 renderer.setSize(rendererSizeX, rendererSizeY);
 scene.add(world);
+const light = new HemisphereLight(0xffffff, 0x080820, 1);
+light.position.set(0, 0, 10).normalize();
+scene.add(light);
+
 scene.rotateX(-20);
 
 function animate() {
