@@ -25,15 +25,36 @@ export default (settings: GameSettings, biomes: Biome[]): BufferGeometry => {
   const getZValue = (zValue: number) => {
     return Math.pow(zValue, 4) * maxHeight;
   };
-  for (let i = 0; i < triangles.length; i++) {
+  for (let i = 0; i < triangles.length; i += 3) {
     const biome = getByZValue(biomes, points3D[triangles[i]][2]);
     vertices.push(
       points3D[triangles[i]][0],
       points3D[triangles[i]][1],
       getZValue(points3D[triangles[i]][2]),
     );
-
-    colors.push(biome.color.r, biome.color.g, biome.color.b);
+    vertices.push(
+      points3D[triangles[i + 1]][0],
+      points3D[triangles[i + 1]][1],
+      getZValue(points3D[triangles[i + 1]][2]),
+    );
+    vertices.push(
+      points3D[triangles[i + 2]][0],
+      points3D[triangles[i + 2]][1],
+      getZValue(points3D[triangles[i + 2]][2]),
+    );
+    colors.push(
+      biome.color.r,
+      biome.color.g,
+      biome.color.b,
+      biome.color.r,
+      biome.color.g,
+      biome.color.b,
+      biome.color.r,
+      biome.color.g,
+      biome.color.b,
+    );
+    normals.push(0, 0, 1);
+    normals.push(0, 0, 1);
     normals.push(0, 0, 1);
   }
 
@@ -49,5 +70,6 @@ export default (settings: GameSettings, biomes: Biome[]): BufferGeometry => {
     'normals',
     new BufferAttribute(new Float32Array(normals), 3, true),
   );
+
   return geometry;
 };

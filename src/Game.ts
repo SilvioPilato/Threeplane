@@ -47,7 +47,7 @@ export const CreateRandomWorld = (
   });
   const mapStrategy = mapStrategies[type];
   const world = new Mesh(mapStrategy(gameSettings, biomes), material);
-
+  console.log(world.geometry.attributes);
   world.position.y = (-gridYSize * gridCellSize) / 2;
   world.position.x = (-gridXSize * gridCellSize) / 2;
   return world;

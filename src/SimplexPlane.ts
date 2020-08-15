@@ -36,7 +36,7 @@ export default (
     vertices.push(column * gridCellSize);
     vertices.push(row * gridCellSize);
     vertices.push(getZValue(lastZvalue));
-    triangles.push(lastZvalue / maxHeight);
+    triangles.push(lastZvalue);
 
     lastZvalue = noise(column + 1, row);
     vertices.push((column + 1) * gridCellSize);
