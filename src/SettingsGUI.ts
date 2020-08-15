@@ -1,6 +1,9 @@
 import { GUI, GUIController } from 'dat.gui';
 const gui = new GUI({ width: 300 });
-
+export enum MapGenStrategy {
+  DELANUNAY_PLANE,
+  GRID_PLANE,
+}
 export type GameSettings = {
   gridXSize: number;
   gridYSize: number;
@@ -11,8 +14,10 @@ export type GameSettings = {
   noiseScale: number;
   maxHeight: number;
   worldAutogen: boolean;
+  type: MapGenStrategy;
   onWorldGen: () => void;
 };
+
 export type GameSettingsOptions = keyof GameSettings;
 type ComponentMap = {
   [T in GameSettingsOptions]: GUIController;
@@ -35,6 +40,7 @@ export default (
     maxHeight,
     onWorldGen,
     worldAutogen,
+    type,
   } = defaultSettings;
   const settings = {
     'Horizontal size': gridXSize,
@@ -47,8 +53,12 @@ export default (
     'Max height': maxHeight,
     'Generate on change': worldAutogen,
     'Generate world': onWorldGen,
+    'Map type': type,
   };
-
+  const types = {
+    SimpleGrid: MapGenStrategy.GRID_PLANE,
+    DelaunayGrid: MapGenStrategy.DELANUNAY_PLANE,
+  };
   const componentMap: ComponentMap = {
     gridXSize: gridFolder.add(settings, 'Horizontal size', 2, 300, 1),
     gridYSize: gridFolder.add(settings, 'Vertical size', 2, 300, 1),
@@ -64,6 +74,7 @@ export default (
       0.05,
     ),
     maxHeight: gridFolder.add(settings, 'Max height', 1, 50, 0.5),
+    type: gridFolder.add(settings, 'Map type', types),
     worldAutogen: gui.add(settings, 'Generate on change'),
     onWorldGen: gui.add(settings, 'Generate world'),
   };

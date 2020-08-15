@@ -1,8 +1,9 @@
-import { RandomMapGame, CreateRandomWorld } from './Game';
+import { RandomMapGame, CreateRandomDelaunay, CreateRandomWorld } from './Game';
 import SettingsGUI, {
   domElement,
   GameSettings,
   GameSettingsOptions,
+  MapGenStrategy,
 } from './SettingsGUI';
 import { Biome, BiomeType } from './Biomes';
 import { HemisphereLight } from 'three';
@@ -23,6 +24,7 @@ let gameSettings: GameSettings = {
   onWorldGen: () => {
     refreshWorld();
   },
+  type: MapGenStrategy.DELANUNAY_PLANE,
 };
 const activeBiomes: Biome[] = [
   {
