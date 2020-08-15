@@ -26,7 +26,12 @@ export default (settings: GameSettings, biomes: Biome[]): BufferGeometry => {
     return Math.pow(zValue, 4) * maxHeight;
   };
   for (let i = 0; i < triangles.length; i += 3) {
-    const biome = getByZValue(biomes, points3D[triangles[i]][2]);
+    const maxZValue = Math.max(
+      points3D[triangles[i]][2],
+      points3D[triangles[i + 1]][2],
+      points3D[triangles[i + 2]][2],
+    );
+    const biome = getByZValue(biomes, maxZValue);
     vertices.push(
       points3D[triangles[i]][0],
       points3D[triangles[i]][1],
