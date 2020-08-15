@@ -5,16 +5,20 @@ import {
   WebGLRenderer,
   Mesh,
   MeshPhongMaterial,
+  BackSide,
+  FrontSide,
 } from 'three';
 import SimplexPlane from './SimplexPlane';
-import { GameSettings } from './SettingsGUI';
+import { GameSettings, MapGenStrategy } from './SettingsGUI';
 import { Biome } from './Biomes';
+import DelaunayPlane from './DelaunayPlane';
 export type Game = {
   scene: Scene;
   world: Object3D;
   camera: PerspectiveCamera;
   renderer: WebGLRenderer;
 };
+
 export const RandomMapGame = (
   settings: GameSettings,
   biomes: Biome[],
@@ -35,15 +39,21 @@ export const CreateRandomWorld = (
   gameSettings: GameSettings,
   biomes: Biome[],
 ): Object3D => {
-  const { gridXSize, gridYSize, gridCellSize } = gameSettings;
+  const { gridXSize, gridYSize, gridCellSize, type } = gameSettings;
   const material = new MeshPhongMaterial({
     vertexColors: true,
     flatShading: true,
+    side: type == MapGenStrategy.DELANUNAY_PLANE ? BackSide : FrontSide,
   });
-
-  const world = new Mesh(SimplexPlane(gameSettings, biomes), material);
+  const mapStrategy = mapStrategies[type];
+  const world = new Mesh(mapStrategy(gameSettings, biomes), material);
 
   world.position.y = (-gridYSize * gridCellSize) / 2;
   world.position.x = (-gridXSize * gridCellSize) / 2;
   return world;
+};
+
+const mapStrategies = {
+  [MapGenStrategy.DELANUNAY_PLANE]: DelaunayPlane,
+  [MapGenStrategy.GRID_PLANE]: SimplexPlane,
 };
