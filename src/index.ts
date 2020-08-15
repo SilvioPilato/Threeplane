@@ -1,4 +1,4 @@
-import { RandomMapGame, CreateRandomDelaunay, CreateRandomWorld } from './Game';
+import { RandomMapGame, CreateRandomWorld } from './Game';
 import SettingsGUI, {
   domElement,
   GameSettings,
