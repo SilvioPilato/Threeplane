@@ -968,6 +968,11 @@
   resolved "https://registry.yarnpkg.com/@types/dat.gui/-/dat.gui-0.7.5.tgz#8f4f87300ae553a57b246a7bf1b9fe5e13ca8b79"
   integrity sha512-5AqLThlTiuDSOZA7XZFogRj/UdGKn/iIfdFPuh37kY4s7TjTt+YUOlUmcCrY6wAYFFyThtt2z8qZlYcdkhJZ5w==
 
+"@types/delaunator@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/delaunator/-/delaunator-3.0.0.tgz#217475640c604def83709f18f652bb372e3897ca"
+  integrity sha512-x8XXE/QqXUPafkqFXeJCQCq/S81IW/t49Nnhgx3yKmGwL89qFRxnXn5qtcil9GO3gVkjGy4SwgacOjCN1B6b7w==
+
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
@@ -2104,6 +2109,11 @@ define-property@^2.0.2:
   dependencies:
     is-descriptor "^1.0.2"
     isobject "^3.0.1"
+
+delaunator@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/delaunator/-/delaunator-4.0.1.tgz#3d779687f57919a7a418f8ab947d3bddb6846957"
+  integrity sha512-WNPWi1IRKZfCt/qIDMfERkDp93+iZEmOxN2yy4Jg+Xhv8SLk2UTqqbe1sfiipn0and9QrE914/ihdx82Y/Giag==
 
 delayed-stream@~1.0.0:
   version "1.0.0"
@@ -3624,6 +3634,11 @@ mkdirp@^0.5.1, mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.5"
 
+moore@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/moore/-/moore-1.0.0.tgz#1d2b298c32cfd330db0fe81a0b5bac319fd9eb65"
+  integrity sha1-HSspjDLP0zDbD+gaC1usMZ/Z62U=
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -4066,6 +4081,13 @@ pn@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
   integrity sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==
+
+poisson-disk-sampling@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/poisson-disk-sampling/-/poisson-disk-sampling-2.2.2.tgz#d326f6be7e1704e1d54e6a024bd44a3fb33120e5"
+  integrity sha512-N+P2Tydw9leBaTyOwKQv12sgLGkvsZTfa6pHRD8QlbdzFN5gJ0ByzkQrwwKr3W2bxenWgktf9hb4m/RqQ+id4Q==
+  dependencies:
+    moore "~1.0.0"
 
 posix-character-classes@^0.1.0:
   version "0.1.1"
