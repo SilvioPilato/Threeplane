@@ -12,8 +12,8 @@ const rendererSizeX = 800;
 const rendererSizeY = 600;
 
 let gameSettings: GameSettings = {
-  gridXSize: 100,
-  gridYSize: 100,
+  gridXSize: 200,
+  gridYSize: 200,
   gridCellSize: 1,
   noiseOctaves: 4,
   octavesPersistence: 0.25,
@@ -22,7 +22,7 @@ let gameSettings: GameSettings = {
   maxHeight: 20,
   worldAutogen: true,
   onWorldGen: () => {
-    refreshWorld();
+    () => null;
   },
   type: MapGenStrategy.DELANUNAY_PLANE,
 };
@@ -74,36 +74,37 @@ const activeBiomes: Biome[] = [
   },
 ];
 
-const onSettingsChange = (compName: GameSettingsOptions, value: unknown) => {
-  gameSettings = { ...gameSettings, [compName]: value };
-  if (gameSettings.worldAutogen && compName !== 'onWorldGen') {
-    refreshWorld();
+RandomMapGame(gameSettings, activeBiomes).then((map) => {
+  const onSettingsChange = (compName: GameSettingsOptions, value: unknown) => {
+    gameSettings = { ...gameSettings, [compName]: value };
+    if (gameSettings.worldAutogen && compName !== 'onWorldGen') {
+      refreshWorld();
+    }
+  };
+  SettingsGUI(gameSettings, onSettingsChange);
+  const { renderer, camera, scene } = map;
+  let { world } = map;
+
+  const refreshWorld = async () => {
+    const newWorld = await CreateRandomWorld(gameSettings, activeBiomes);
+    scene.remove(world);
+    scene.add(newWorld);
+    world = newWorld;
+  };
+
+  document.getElementById('properties-panel').appendChild(domElement);
+  document.getElementById('app').appendChild(renderer.domElement);
+  renderer.setSize(rendererSizeX, rendererSizeY);
+  scene.add(world);
+  const light = new HemisphereLight(0xffffff, 0x080820, 1);
+  light.position.set(0, 0, 10).normalize();
+  scene.add(light);
+
+  scene.rotateX(-20);
+
+  function animate() {
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
   }
-};
-SettingsGUI(gameSettings, onSettingsChange);
-const map = RandomMapGame(gameSettings, activeBiomes);
-const { renderer, camera, scene } = map;
-let { world } = map;
-
-const refreshWorld = () => {
-  const newWorld = CreateRandomWorld(gameSettings, activeBiomes);
-  scene.remove(world);
-  scene.add(newWorld);
-  world = newWorld;
-};
-
-document.getElementById('properties-panel').appendChild(domElement);
-document.getElementById('app').appendChild(renderer.domElement);
-renderer.setSize(rendererSizeX, rendererSizeY);
-scene.add(world);
-const light = new HemisphereLight(0xffffff, 0x080820, 1);
-light.position.set(0, 0, 10).normalize();
-scene.add(light);
-
-scene.rotateX(-20);
-
-function animate() {
-  requestAnimationFrame(animate);
-  renderer.render(scene, camera);
-}
-animate();
+  animate();
+});
