@@ -12,17 +12,15 @@ const rendererSizeY = 600;
 
 const onWorldGen = () => null;
 let gameSettings: GameSettings = {
-  gridXSize: 800,
-  gridYSize: 800,
+  gridXSize: 200,
+  gridYSize: 200,
   gridCellSize: 1,
   noiseOctaves: 4,
   octavesPersistence: 0.25,
   noiseLacunarity: 7,
   noiseScale: 80,
   maxHeight: 20,
-  worldAutogen: true,
   onWorldGen: onWorldGen,
-  type: MapGenStrategy.DELANUNAY_PLANE,
 };
 const activeBiomes: Biome[] = [
   {

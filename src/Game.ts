@@ -6,10 +6,9 @@ import {
   Mesh,
   MeshPhongMaterial,
   BackSide,
-  FrontSide,
 } from 'three';
-import SimplexPlane from './SimplexPlane';
-import { GameSettings, MapGenStrategy } from './SettingsGUI';
+
+import { GameSettings } from './SettingsGUI';
 import { Biome } from './Biomes';
 import DelaunayPlane from './DelaunayPlane';
 export type Game = {
@@ -39,11 +38,11 @@ export const CreateRandomWorld = async (
   gameSettings: GameSettings,
   biomes: Biome[],
 ): Promise<Object3D> => {
-  const { gridXSize, gridYSize, gridCellSize, type } = gameSettings;
+  const { gridXSize, gridYSize, gridCellSize } = gameSettings;
   const material = new MeshPhongMaterial({
     vertexColors: true,
     flatShading: true,
-    side: type == MapGenStrategy.DELANUNAY_PLANE ? BackSide : FrontSide,
+    side: BackSide,
   });
   // const mapStrategy = mapStrategies[type];
   const mapMesh = await DelaunayPlane(gameSettings, biomes);
@@ -52,9 +51,4 @@ export const CreateRandomWorld = async (
   world.position.y = (-gridYSize * gridCellSize) / 2;
   world.position.x = (-gridXSize * gridCellSize) / 2;
   return Promise.resolve(world);
-};
-
-const mapStrategies = {
-  [MapGenStrategy.DELANUNAY_PLANE]: DelaunayPlane,
-  [MapGenStrategy.GRID_PLANE]: SimplexPlane,
 };
