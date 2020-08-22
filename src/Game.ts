@@ -19,10 +19,10 @@ export type Game = {
   renderer: WebGLRenderer;
 };
 
-export const RandomMapGame = (
+export const RandomMapGame = async (
   settings: GameSettings,
   biomes: Biome[],
-): Game => {
+): Promise<Game> => {
   const camera = new PerspectiveCamera(75, 800 / 600, 0.1, 1000);
   camera.position.set(0, 0, 100);
   camera.lookAt(0, 0, 0);
@@ -31,26 +31,27 @@ export const RandomMapGame = (
     scene: new Scene(),
     renderer: new WebGLRenderer(),
     camera,
-    world: CreateRandomWorld(settings, biomes),
+    world: await CreateRandomWorld(settings, biomes),
   };
 };
 
-export const CreateRandomWorld = (
+export const CreateRandomWorld = async (
   gameSettings: GameSettings,
   biomes: Biome[],
-): Object3D => {
+): Promise<Object3D> => {
   const { gridXSize, gridYSize, gridCellSize, type } = gameSettings;
   const material = new MeshPhongMaterial({
     vertexColors: true,
     flatShading: true,
     side: type == MapGenStrategy.DELANUNAY_PLANE ? BackSide : FrontSide,
   });
-  const mapStrategy = mapStrategies[type];
-  const world = new Mesh(mapStrategy(gameSettings, biomes), material);
-  console.log(world.geometry.attributes);
+  // const mapStrategy = mapStrategies[type];
+  const mapMesh = await DelaunayPlane(gameSettings, biomes);
+  const world = new Mesh(mapMesh, material);
+
   world.position.y = (-gridYSize * gridCellSize) / 2;
   world.position.x = (-gridXSize * gridCellSize) / 2;
-  return world;
+  return Promise.resolve(world);
 };
 
 const mapStrategies = {
