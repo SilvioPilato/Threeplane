@@ -10,5 +10,5 @@ onmessage = (event) => {
     tries: 30,
   });
 
-  postMessage(poisson.fill());
+  postMessage(poisson.fill(), null);
 };

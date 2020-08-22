@@ -7,13 +7,13 @@ import SettingsGUI, {
 } from './SettingsGUI';
 import { Biome, BiomeType } from './Biomes';
 import { HemisphereLight } from 'three';
-
 const rendererSizeX = 800;
 const rendererSizeY = 600;
 
+const onWorldGen = () => null;
 let gameSettings: GameSettings = {
-  gridXSize: 200,
-  gridYSize: 200,
+  gridXSize: 800,
+  gridYSize: 800,
   gridCellSize: 1,
   noiseOctaves: 4,
   octavesPersistence: 0.25,
@@ -21,9 +21,7 @@ let gameSettings: GameSettings = {
   noiseScale: 80,
   maxHeight: 20,
   worldAutogen: true,
-  onWorldGen: () => {
-    () => null;
-  },
+  onWorldGen: onWorldGen,
   type: MapGenStrategy.DELANUNAY_PLANE,
 };
 const activeBiomes: Biome[] = [
@@ -77,20 +75,19 @@ const activeBiomes: Biome[] = [
 RandomMapGame(gameSettings, activeBiomes).then((map) => {
   const onSettingsChange = (compName: GameSettingsOptions, value: unknown) => {
     gameSettings = { ...gameSettings, [compName]: value };
-    if (gameSettings.worldAutogen && compName !== 'onWorldGen') {
-      refreshWorld();
-    }
   };
-  SettingsGUI(gameSettings, onSettingsChange);
-  const { renderer, camera, scene } = map;
-  let { world } = map;
-
   const refreshWorld = async () => {
+    console.log('starting');
     const newWorld = await CreateRandomWorld(gameSettings, activeBiomes);
     scene.remove(world);
     scene.add(newWorld);
     world = newWorld;
   };
+  gameSettings.onWorldGen = refreshWorld;
+
+  SettingsGUI(gameSettings, onSettingsChange);
+  const { renderer, camera, scene } = map;
+  let { world } = map;
 
   document.getElementById('properties-panel').appendChild(domElement);
   document.getElementById('app').appendChild(renderer.domElement);

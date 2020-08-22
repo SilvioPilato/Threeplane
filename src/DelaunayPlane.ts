@@ -30,18 +30,18 @@ export default (
       },
     ];
     let workersEnded = 0;
+
     const points3D = [];
     tileOffsets.forEach((offsets) => {
       const worker = new Worker('PoissonWorker.ts');
       worker.addEventListener('message', ({ data }) => {
         for (const point of data) {
-          points3D.push(
+          points3D.push([
             point[0] + offsets.x,
             point[1] + offsets.y,
             noise(point[0] + offsets.x, point[1] + offsets.y),
-          );
+          ]);
         }
-
         workersEnded++;
         if (workersEnded >= tileOffsets.length) {
           resolve(getTriangulatedGeometry(settings, points3D, biomes));
@@ -68,9 +68,10 @@ const getTriangulatedGeometry = (
   const vertices = [];
   const colors = [];
   const normals = [];
-  const getZValue = (zValue: number) => {
+  const getZValue = function getZValue(zValue: number) {
     return Math.pow(zValue, 4) * maxHeight;
   };
+
   for (let i = 0; i < triangles.length; i += 3) {
     const maxZValue = Math.max(
       points3D[triangles[i]][2],
