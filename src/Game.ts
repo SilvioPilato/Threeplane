@@ -23,7 +23,7 @@ export const RandomMapGame = async (
   biomes: Biome[],
 ): Promise<Game> => {
   const camera = new PerspectiveCamera(75, 800 / 600, 0.1, 1000);
-  camera.position.set(0, 0, 100);
+  camera.position.set(0, 100, -200);
   camera.lookAt(0, 0, 0);
 
   return {

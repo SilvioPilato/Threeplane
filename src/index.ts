@@ -6,6 +6,7 @@ import SettingsGUI, {
 } from './SettingsGUI';
 import { Biome, BiomeType } from './Biomes';
 import { HemisphereLight } from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 const rendererSizeX = 800;
 const rendererSizeY = 600;
 
@@ -93,11 +94,12 @@ RandomMapGame(gameSettings, activeBiomes).then((map) => {
   const light = new HemisphereLight(0xffffff, 0x080820, 1);
   light.position.set(0, 0, 10).normalize();
   scene.add(light);
-
-  scene.rotateX(-20);
+  const controls = new OrbitControls(camera, renderer.domElement);
+  scene.rotateX(80);
 
   function animate() {
     requestAnimationFrame(animate);
+    controls.update();
     renderer.render(scene, camera);
   }
   animate();
