@@ -34,15 +34,14 @@ export default (
     tileOffsets.forEach((offsets) => {
       const worker = new Worker('PoissonWorker.ts');
       worker.addEventListener('message', ({ data }) => {
-        points3D.push(
-          ...data.map((point: number[]) => {
-            return [
-              point[0] + offsets.x,
-              point[1] + offsets.y,
-              noise(point[0] + offsets.x, point[1] + offsets.y),
-            ];
-          }),
-        );
+        for (const point of data) {
+          points3D.push(
+            point[0] + offsets.x,
+            point[1] + offsets.y,
+            noise(point[0] + offsets.x, point[1] + offsets.y),
+          );
+        }
+
         workersEnded++;
         if (workersEnded >= tileOffsets.length) {
           resolve(getTriangulatedGeometry(settings, points3D, biomes));
