@@ -3,7 +3,6 @@ import SettingsGUI, {
   domElement,
   GameSettings,
   GameSettingsOptions,
-  MapGenStrategy,
 } from './SettingsGUI';
 import { Biome, BiomeType } from './Biomes';
 import { HemisphereLight } from 'three';
